@@ -1,4 +1,5 @@
 var FACEBOOK_USER_ID = '4';
+var markers = window.markers = {};
 
 FB.getLoginStatus(function(response) {
   if (response.status === 'connected') {
@@ -12,13 +13,13 @@ FB.getLoginStatus(function(response) {
   }
 });
 
-
+function drawFriendLocations(friends) {
+  for (var i = 0; i < friends.length; i++) {
+    updateMarker(friends[i]);
+  }
+}
 function getFriendLocations() {
-  $.get('/friend_location', function(friends) {
-    for (var i = 0; i < friends.length; i++) {
-      updateMarker(friends[i]);
-    }
-  });
+  $.get('/friends_location', drawFriendLocations);
 }
 
 
@@ -27,8 +28,10 @@ function initialize() {
   getFriendLocations();
 }
 
+function doStuff() {
+  drawFriendLocations([{id: '4', lat: 55.741, lng: 37.60}]);
+}
 
-var markers = {};
 
 function onGeolocationSuccess(position) {
   var latitude = position.coords.latitude;
@@ -61,6 +64,7 @@ function onGeolocationSuccess(position) {
     }
   });
 
+  doStuff();
 }
 
 
@@ -84,9 +88,9 @@ function updateMarker(data) {
   if (!marker) {
     markers[data.id] = marker = new google.maps.Marker({
       position: latLng,
-      title: 'Point A',
+      title: 'X',
       map: map,
-      icon: 'http://graph.facebook.com/' + FACEBOOK_USER_ID + '/picture'
+      icon: 'http://graph.facebook.com/' + data.id + '/picture'
     });
   }
 
