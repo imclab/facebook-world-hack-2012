@@ -15,12 +15,6 @@
 <body>
   <div id="fb-root"></div>
   <div id="mapCanvas"></div>
-  <div id="infoPanel">
-    <b>Current position:</b>
-    <div id="info"></div>
-    <b>Closest matching address:</b>
-    <div id="address"></div>
-  </div>
   <div class="user">
     <% if authenticated? %>
       <!--fb:profile-pic uid="<%= current_user.try(:identifier) %>" size="normal" facebook-logo="true"></fb:profile-pic-->
@@ -29,7 +23,6 @@
       <fb:login-button length="long" onlogin="location.href = '<%= facebook_path %>'" scope="<%= Facebook.config[:scope] %>"></fb:login-button>
     <% end %>
   </div>
-  <%= yield %>
   <script src="http://connect.facebook.net/en_US/all.js"></script>
   <script>
   FB.init({
