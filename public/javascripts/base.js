@@ -48,10 +48,8 @@ function onGeolocationSuccess(position) {
     title: 'Point A',
     map: map
   });
-  markers[FACEBOOK_USER_ID] = {
-    lat: latitude,
-    lng: longitude
-  };
+
+  setMyLocation(latitude, longitude);
 
   // Update current position info.
   updateMarkerPosition(latLng);
@@ -62,7 +60,7 @@ function onGeolocationSuccess(position) {
       latitude = pos.coords.latitude;
       longitude = pos.coords.longitude;
 
-      push(latitude, longitude);
+      setMyLocation(latitude, longitude);
 
       var latLng = new google.maps.LatLng(latitude, longitude);
       marker.setPosition(latLng);
@@ -72,6 +70,20 @@ function onGeolocationSuccess(position) {
 
 }
 
+
+function setMyLocation(lat, lng) {
+  markers[FACEBOOK_USER_ID] = {
+    lat: lat,
+    lng: lng
+  };
+  $.ajax({
+    type: 'POST',
+    url: '/update_location',
+    data: {lat: lat, lng: lng},
+    success: function(){},
+    dataType: 'json'
+  });
+}
 
 function updateMarker(data) {
   var marker = markers[data.id];
@@ -86,12 +98,6 @@ function updateMarker(data) {
   }
 
   marker.setPosition(latLng);
-}
-
-
-function push(latitude, longitude) {
-  // Publish to Pusher
-  // IMPLEMENT ME!
 }
 
 
