@@ -54,6 +54,9 @@ function onGeolocationSuccess(position) {
     if (pos.coords.latitude != latitude || pos.coords.longitude != longitude) {
       latitude = pos.coords.latitude;
       longitude = pos.coords.longitude;
+
+      push(latitude, longitude);
+
       var latLng = new google.maps.LatLng(latitude, longitude);
       marker.setPosition(latLng);
       map.setCenter(latLng);
@@ -61,6 +64,14 @@ function onGeolocationSuccess(position) {
   });
 
 }
+
+
+function push(latitude, longitude) {
+  // Publish to Pusher
+  // IMPLEMENT ME!
+}
+
+
 
 function onGeolocationError(error) {
   console.error(error.message, error.code);
