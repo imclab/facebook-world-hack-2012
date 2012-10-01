@@ -8,14 +8,14 @@ Facebook had [FriendShake](https://www.facebook.com/friendsshake) at some point.
 ## TODO
 
 **Map:**  
-* Get current long/lat via [navigator.geolocation.getCurrentPositionDraw](http://diveintohtml5.info/geolocation.html)
-* Display it as a marker on Gmaps
-* Change marker position as you move
-* Show friends
+* ✓ Get current long/lat via [navigator.geolocation.getCurrentPositionDraw](http://diveintohtml5.info/geolocation.html)
+* ✓ Display it as a marker on Gmaps
+* ✓ Change marker position as you move
+* ✓ Show friends
 
 **Facebook App:**  
-* Login on Facebook
-* Get friends who use the app and show their coordinates on the map
+* ✓ Login on Facebook
+* ✓ Get friends who use the app and show their coordinates on the map
 * Send my coordinates to [Pusher](http://pusher.com/)
 * Get friends' coordinates via Pusher
 
