@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
 
   def update_location
     location = Location.find_or_create_by_identifier(current_user.identifier)
-  	location.update_attributes(latitude: params[:lat], longitude: params[:lng])
+  	location.update_attributes(:latitude => params[:lat], :longitude => params[:lng])
     render :nothing => true
   end
 
