@@ -14,7 +14,7 @@ FB.getLoginStatus(function(response) {
 });
 
 function drawFriendLocations(friends) {
-  console.log(friends);
+  friends = JSON.parse(friends);
   for (var i = 0; i < friends.length; i++) {
     updateMarker(friends[i]);
   }
