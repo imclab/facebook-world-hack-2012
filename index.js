@@ -1,3 +1,6 @@
+var FACEBOOK_USER_ID = 538958898; // Nikita Vasilyev's user id
+
+
 var geocoder = new google.maps.Geocoder();
 
 function geocodePosition(pos) {
@@ -79,3 +82,20 @@ function onGeolocationError(error) {
 
 // Onload handler to fire off the app.
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+Pusher.log = function(message) {
+  if (window.console && window.console.log) window.console.log(message);
+};
+
+// Flash fallback logging - don't include this in production
+WEB_SOCKET_DEBUG = true;
+
+var pusher = new Pusher('e21f8ca0d837d602f711');
+var channel = pusher.subscribe('test_channel');
+
+// data looks like {id: 123, lat: 1, long: 2}
+channel.bind('my_event', function(data) {
+
+});
