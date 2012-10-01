@@ -77,9 +77,8 @@ function setMyLocation(lat, lng) {
     lat: lat,
     lng: lng
   };
-  $.ajax({
+  $.ajax('/update_location', {
     type: 'POST',
-    url: '/update_location',
     data: {lat: lat, lng: lng},
     success: function(){},
     dataType: 'json'
