@@ -13,8 +13,18 @@ FB.getLoginStatus(function(response) {
 });
 
 
+function getFriendLocations() {
+  $.get('/friend_location', function(friends) {
+    for (var i = 0; i < friends.length; i++) {
+      updateMarker(friends[i]);
+    }
+  });
+}
+
+
 function initialize() {
   navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
+  getFriendLocations();
 }
 
 
@@ -99,6 +109,7 @@ Pusher.log = function(message) {
 
 // Flash fallback logging - don't include this in production
 WEB_SOCKET_DEBUG = true;
+
 
 //var pusher = new Pusher('e21f8ca0d837d602f711');
 //var channel = pusher.subscribe('test_channel');
