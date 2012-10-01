@@ -13,32 +13,6 @@ FB.getLoginStatus(function(response) {
 });
 
 
-var geocoder = new google.maps.Geocoder();
-
-function geocodePosition(pos) {
-  geocoder.geocode({
-    latLng: pos
-  }, function(responses) {
-    if (responses && responses.length > 0) {
-      updateMarkerAddress(responses[0].formatted_address);
-    } else {
-      updateMarkerAddress('Cannot determine address at this location.');
-    }
-  });
-}
-
-
-function updateMarkerPosition(latLng) {
-  document.getElementById('info').innerHTML = [
-    latLng.lat(),
-    latLng.lng()
-  ].join(', ');
-}
-
-function updateMarkerAddress(str) {
-  document.getElementById('address').innerHTML = str;
-}
-
 function initialize() {
   navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
 }
@@ -63,10 +37,6 @@ function onGeolocationSuccess(position) {
   });
 
   setMyLocation(latitude, longitude);
-
-  // Update current position info.
-  updateMarkerPosition(latLng);
-  geocodePosition(latLng);
 
   navigator.geolocation.watchPosition(function(pos) {
     if (pos.coords.latitude != latitude || pos.coords.longitude != longitude) {
