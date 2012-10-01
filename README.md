@@ -1,8 +1,8 @@
-# Google Latitude-like service integrated with Facebook
+# [Google Latitude](https://latitude.google.com/latitude/)-like service integrated with Facebook
 
 A webpage with a map that shows your friends in real time.
 
-Facebook had FriendShake at some point. It doesn't work anymore.
+Facebook had [FriendShake](https://www.facebook.com/friendsshake) at some point. It doesn't work anymore.
 
 
 ## TODO
@@ -16,7 +16,7 @@ Facebook had FriendShake at some point. It doesn't work anymore.
 **Facebook App:**  
 * Login on Facebook
 * Get friends who use the app and show their coordinates on the map
-* Send my coordinates to Pusher
+* Send my coordinates to [Pusher](http://pusher.com/)
 * Get friends' coordinates via Pusher
 
 It's moot for me how to do the whole auth thing.
