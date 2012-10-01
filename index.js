@@ -15,9 +15,6 @@ function geocodePosition(pos) {
   });
 }
 
-function updateMarkerStatus(str) {
-  document.getElementById('markerStatus').innerHTML = str;
-}
 
 function updateMarkerPosition(latLng) {
   document.getElementById('info').innerHTML = [
@@ -34,11 +31,14 @@ function initialize() {
   navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
 }
 
+
+var markers = {};
+
 function onGeolocationSuccess(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var latLng = new google.maps.LatLng(latitude, longitude);
-  var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+  var map = window.map = new google.maps.Map(document.getElementById('mapCanvas'), {
     zoom: 14,
     center: latLng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -48,6 +48,10 @@ function onGeolocationSuccess(position) {
     title: 'Point A',
     map: map
   });
+  markers[FACEBOOK_USER_ID] = {
+    lat: latitude,
+    lng: longitude
+  };
 
   // Update current position info.
   updateMarkerPosition(latLng);
@@ -69,6 +73,22 @@ function onGeolocationSuccess(position) {
 }
 
 
+function updateMarker(data) {
+  var marker = markers[data.id];
+  var latLng = new google.maps.LatLng(data.lat, data.lng);
+
+  if (!marker) {
+    markers[data.id] = marker = new google.maps.Marker({
+      position: latLng,
+      title: 'Point A',
+      map: map
+    });
+  }
+
+  marker.setPosition(latLng);
+}
+
+
 function push(latitude, longitude) {
   // Publish to Pusher
   // IMPLEMENT ME!
@@ -84,7 +104,6 @@ function onGeolocationError(error) {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 
-
 Pusher.log = function(message) {
   if (window.console && window.console.log) window.console.log(message);
 };
@@ -95,7 +114,9 @@ WEB_SOCKET_DEBUG = true;
 var pusher = new Pusher('e21f8ca0d837d602f711');
 var channel = pusher.subscribe('test_channel');
 
-// data looks like {id: 123, lat: 1, long: 2}
-channel.bind('my_event', function(data) {
-
+// friends looks like [{id: 538958898, lat: 1, lng: 2}]
+channel.bind('my_event', function(friends) {
+  for (var i = 0; i < friends.length; i++) {
+    updateMarker(friends[i]);
+  }
 });
