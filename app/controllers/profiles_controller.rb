@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
 
   def update_location
     location = Location.find_or_create_by_identifier(current_user.identifier)
-  	location.update_attributes(latitude: params[:lat], longitude: params[:lng])
+  	location.update_attributes(:latitude => params[:lat], :longitude => params[:lng])
     render :nothing => true
   end
 
@@ -15,14 +15,13 @@ class ProfilesController < ApplicationController
   	friend_data.fetch(current_user.access_token).collect{|u| u['uid'].to_s}
   end
 
-  def friends
+  def friends_locations
   	locations = Location.where(:identifier => friends_with_app)
   	render :js => locations
   end
 
-  def prepare_pusher_data(my_uid, friend_uids)
-  	friend_uids.each do |friend_uid|
-
-  	end
-  end
+#  def prepare_pusher_data(my_uid, friend_uids)
+#  	friend_uids.each do |friend_uid|
+#  	end
+#  end
 end
