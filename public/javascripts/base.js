@@ -1,4 +1,16 @@
-var FACEBOOK_USER_ID = 538958898; // Nikita Vasilyev's user id
+var FACEBOOK_USER_ID = '4';
+
+FB.getLoginStatus(function(response) {
+  if (response.status === 'connected') {
+    FACEBOOK_USER_ID = response.authResponse.userID;
+    initialize();
+  } else {
+    FB.Event.subscribe('auth.login', function(response) {
+      FACEBOOK_USER_ID = response.userID;
+      initialize();
+    });
+  }
+});
 
 
 var geocoder = new google.maps.Geocoder();
@@ -108,7 +120,7 @@ function onGeolocationError(error) {
 }
 
 // Onload handler to fire off the app.
-google.maps.event.addDomListener(window, 'load', initialize);
+//google.maps.event.addDomListener(window, 'load', initialize);
 
 
 Pusher.log = function(message) {
@@ -118,12 +130,12 @@ Pusher.log = function(message) {
 // Flash fallback logging - don't include this in production
 WEB_SOCKET_DEBUG = true;
 
-var pusher = new Pusher('e21f8ca0d837d602f711');
-var channel = pusher.subscribe('test_channel');
+//var pusher = new Pusher('e21f8ca0d837d602f711');
+//var channel = pusher.subscribe('test_channel');
 
 // friends looks like [{id: 538958898, lat: 1, lng: 2}]
-channel.bind('my_event', function(friends) {
-  for (var i = 0; i < friends.length; i++) {
-    updateMarker(friends[i]);
-  }
-});
+//channel.bind('my_event', function(friends) {
+//  for (var i = 0; i < friends.length; i++) {
+//    updateMarker(friends[i]);
+//  }
+//});
