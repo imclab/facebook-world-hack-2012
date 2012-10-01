@@ -8,7 +8,8 @@
   <meta property="fb:app_id" content="<%= Facebook.config[:client_id] %>">
   <%= stylesheet_link_tag 'base' %>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-  <%= javascript_include_tag 'rails', 'base' %>
+  <%= javascript_include_tag 'rails' %>
+  <script src="/javascripts/base.js"></script>
   <%= csrf_meta_tag %>
   <%= yield :head %>
 </head>
@@ -23,8 +24,8 @@
   </div>
   <div class="user">
     <% if authenticated? %>
-      <fb:profile-pic uid="<%= current_user.try(:identifier) %>" size="normal" facebook-logo="true"></fb:profile-pic>
-      <p><%= link_to "Logout", facebook_path, :method => :delete %></p>
+      <!--fb:profile-pic uid="<%= current_user.try(:identifier) %>" size="normal" facebook-logo="true"></fb:profile-pic-->
+      <%= link_to "Logout", facebook_path, :method => :delete %>
     <% else %>
       <fb:login-button length="long" onlogin="location.href = '<%= facebook_path %>'" scope="<%= Facebook.config[:scope] %>"></fb:login-button>
     <% end %>

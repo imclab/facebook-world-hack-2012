@@ -46,7 +46,8 @@ function onGeolocationSuccess(position) {
   var marker = new google.maps.Marker({
     position: latLng,
     title: 'Point A',
-    map: map
+    map: map,
+    icon: 'http://graph.facebook.com/' + FACEBOOK_USER_ID + '/picture'
   });
 
   setMyLocation(latitude, longitude);
@@ -93,7 +94,8 @@ function updateMarker(data) {
     markers[data.id] = marker = new google.maps.Marker({
       position: latLng,
       title: 'Point A',
-      map: map
+      map: map,
+      icon: 'http://graph.facebook.com/' + FACEBOOK_USER_ID + '/picture'
     });
   }
 
