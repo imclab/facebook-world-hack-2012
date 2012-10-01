@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
 
   def friends_with_app(uid = 'me()')
   	friend_data = FbGraph::Query.new("Select uid from user where is_app_user = 1 and uid in (select uid2 from friend where uid1 = #{uid}) order by concat(first_name,last_name) asc")
-  	friend_data.fetch(current_user.access_token).collect{|u| u['uid'].to_s}
+  	friend_data.fetch(current_user.access_token).collect{|u| u['uid']}
   end
 
   def friends_locations
