@@ -5,11 +5,24 @@ class ProfilesController < ApplicationController
   end
 
   def update_location
-  	latitude = 40
-  	longitude = 20
-  	identifier = current_user.identifier
-  	location = Location.find_or_create_by_identifier(identifier: identifier)
-  	location.update_attributes(latitude: latitude, longitude: longitude)
-  	redirect_to dashboard_url
+    location = Location.find_or_create_by_identifier(current_user.identifier)
+  	location.update_attributes(latitude: params[:lat], longitude: params[:lng])
+    render :nothing => true
+  end
+
+  def friends_with_app(uid = 'me()')
+  	friend_data = FbGraph::Query.new("Select uid from user where is_app_user = 1 and uid in (select uid2 from friend where uid1 = #{uid}) order by concat(first_name,last_name) asc")
+  	friend_data.fetch(current_user.access_token).collect{|u| u['uid'].to_s}
+  end
+
+  def friends
+  	locations = Location.where(:identifier => friends_with_app)
+  	render :js => locations
+  end
+
+  def prepare_pusher_data(my_uid, friend_uids)
+  	friend_uids.each do |friend_uid|
+
+  	end
   end
 end

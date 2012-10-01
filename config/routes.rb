@@ -8,7 +8,8 @@ FbGraphSample::Application.routes.draw do
   resource :facebook, :except => :create do
     get :callback, :to => :create
   end
-  get :locate, :to => 'profiles#update_location'
+  get :update_location, :to => 'profiles#update_location'
+  get :friends, :to => 'profiles#friends'
   resource :dashboard, :only => :show
   resource :profile, :only => :show
   resource :timeline, :only => [:show, :create]
