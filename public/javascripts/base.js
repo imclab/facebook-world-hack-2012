@@ -22,9 +22,7 @@ function drawFriendLocations(friends) {
 function getFriendLocations() {
   $.get('/friends_locations', {
     dataType: 'json'
-  }).done(function(data) {
-    console.log(data);
-  });
+  }).done(drawFriendLocations);
 }
 
 
