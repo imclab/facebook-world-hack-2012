@@ -16,8 +16,11 @@ class ProfilesController < ApplicationController
   end
 
   def friends_locations
-  	locations = Location.where(:identifier => friends_with_app)
-  	render :js => locations
+    locations = []
+  	Location.where(:identifier => friends_with_app).each do |loc|
+      locations << {:id => loc.identifier, :lat => loc.latitude, :lng => loc.longitude}
+    end
+  	render :js => locations.to_json
   end
 
 #  def prepare_pusher_data(my_uid, friend_uids)

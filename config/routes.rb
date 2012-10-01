@@ -9,7 +9,7 @@ FbGraphSample::Application.routes.draw do
     get :callback, :to => :create
   end
   get :update_location, :to => 'profiles#update_location'
-  get :friends, :to => 'profiles#friends'
+  get :friends_locations, :to => 'profiles#friends_locations'
   resource :dashboard, :only => :show
   resource :profile, :only => :show
   resource :timeline, :only => [:show, :create]
