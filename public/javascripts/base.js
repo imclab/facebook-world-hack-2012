@@ -70,7 +70,7 @@ function setMyLocation(lat, lng) {
     lng: lng
   };
   $.ajax('/update_location', {
-    type: 'POST',
+    type: 'GET',
     data: {lat: lat, lng: lng},
     success: function(){},
     dataType: 'json'
