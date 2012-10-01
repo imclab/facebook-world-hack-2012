@@ -14,12 +14,18 @@ FB.getLoginStatus(function(response) {
 });
 
 function drawFriendLocations(friends) {
+  if (friends[0] === '<') {
+    return;
+  }
+  friends = JSON.parse(friends);
   for (var i = 0; i < friends.length; i++) {
     updateMarker(friends[i]);
   }
 }
 function getFriendLocations() {
-  $.get('/friends_locations', drawFriendLocations);
+  $.get('/friends_locations', {
+    dataType: 'json'
+  }).done(drawFriendLocations);
 }
 
 
@@ -64,7 +70,7 @@ function onGeolocationSuccess(position) {
     }
   });
 
-  doStuff();
+//  doStuff();
 }
 
 
