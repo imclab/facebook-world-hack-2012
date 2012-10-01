@@ -17,7 +17,6 @@ class ProfilesController < ApplicationController
 
   def friends_locations
     locations = []
-    throw friends_with_app
   	Location.where(:identifier => friends_with_app).each do |loc|
       locations << {:id => loc.identifier, :lat => loc.latitude, :lng => loc.longitude}
     end
