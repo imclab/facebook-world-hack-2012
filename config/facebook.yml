@@ -10,4 +10,4 @@ test:
 production:
   client_id: 273685206081329
   client_secret: eb9161f1a993da749553d25262435ecb
-  scope: user_about_me,friends_about_me
+  scope: user_about_me,friends_about_me,read_friendlists
