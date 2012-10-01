@@ -1,5 +1,5 @@
 var FACEBOOK_USER_ID = '4';
-var markers = window.markers = {};
+var markers = {};
 
 FB.getLoginStatus(function(response) {
   if (response.status === 'connected') {
@@ -19,7 +19,7 @@ function drawFriendLocations(friends) {
   }
 }
 function getFriendLocations() {
-  $.get('/friends_location', drawFriendLocations);
+  $.get('/friends_locations', drawFriendLocations);
 }
 
 
@@ -96,7 +96,6 @@ function updateMarker(data) {
 
   marker.setPosition(latLng);
 }
-
 
 
 function onGeolocationError(error) {
