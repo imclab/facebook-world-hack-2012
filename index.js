@@ -28,9 +28,7 @@ function updateMarkerAddress(str) {
 }
 
 function initialize() {
-  navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, {
-    enableHighAccuracy: true
-  });
+  navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
 }
 
 function onGeolocationSuccess(position) {
@@ -52,14 +50,15 @@ function onGeolocationSuccess(position) {
   updateMarkerPosition(latLng);
   geocodePosition(latLng);
 
-  setInterval(function update() {
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      if (pos.coords.latitude != latitude || pos.coords.longitude != longitude) {
-        //marker.setPosition({latitude: latitude, longitude: longitude});
-        // What's the format of the arguments
-      }
-    });
-  }, 1000);
+  navigator.geolocation.watchPosition(function(pos) {
+    if (pos.coords.latitude != latitude || pos.coords.longitude != longitude) {
+      latitude = pos.coords.latitude;
+      longitude = pos.coords.longitude;
+      var latLng = new google.maps.LatLng(latitude, longitude);
+      marker.setPosition(latLng);
+    }
+  });
+
 }
 
 function onGeolocationError(error) {
