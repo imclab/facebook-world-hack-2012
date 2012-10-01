@@ -56,6 +56,7 @@ function onGeolocationSuccess(position) {
       longitude = pos.coords.longitude;
       var latLng = new google.maps.LatLng(latitude, longitude);
       marker.setPosition(latLng);
+      map.setCenter(latLng);
     }
   });
 
